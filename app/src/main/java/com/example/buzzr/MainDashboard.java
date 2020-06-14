@@ -1,15 +1,21 @@
 package com.example.buzzr;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
 
@@ -29,7 +35,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainDashboard extends AppCompatActivity {
 
-    TextView welcomeTV;
+    private static final int REQUEST_CALL = 1;
+
+    TextView welcomeTV, counterTV;
 
     String localName, localUsername, localPhoneNumber, localPassword, photoPath;
     CircleImageView usrPhoto;
@@ -62,6 +70,7 @@ public class MainDashboard extends AppCompatActivity {
 
         //Hooks
         welcomeTV = findViewById(R.id.dashboardWelcomeTV);
+        counterTV = findViewById(R.id.faceCounter);
         usrPhoto = findViewById(R.id.mainProfilePhoto);
 
         // Setting text
@@ -69,9 +78,17 @@ public class MainDashboard extends AppCompatActivity {
         String firstName = arr[0];
         welcomeTV.setText("Welcome, " + firstName);
 
+        //Counter
+        setCounterText();
+
         //Chart
 
         //Bluetooth Adapter
+    }
+
+    private void setCounterText() {
+        sharedPrefs prefs = new sharedPrefs(getApplicationContext());
+        counterTV.setText(String.valueOf(prefs.getCounter()));
     }
 
     private void loadImageFromStorage(String path) {
@@ -163,12 +180,43 @@ public class MainDashboard extends AppCompatActivity {
         String firstName = arr[0];
         welcomeTV.setText("Welcome, " + firstName);
 
-
         loadImageFromStorage(profilePathNew);
     }
 
     public void openStats(View view) {
         Intent intent = new Intent(this, GraphActivity.class);
         startActivity(intent);
+    }
+
+    public void getHelp(View view) {
+        makePhoneCall();
+    }
+
+    private void makePhoneCall() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainDashboard.this,
+                    new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+        } else{
+            Intent intent = new Intent(Intent.ACTION_CALL);
+            intent.setData(Uri.parse("tel:08447167244"));
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CALL) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                 makePhoneCall();
+            } else {
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public void addOne(View view) {
+        sharedPrefs preference = new sharedPrefs(getApplicationContext());
+        preference.setCounter(preference.getCounter());
+        setCounterText();
     }
 }

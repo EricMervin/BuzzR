@@ -15,22 +15,19 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-
 public class GraphActivity extends AppCompatActivity {
-
     BarChart barChart;
     ArrayList<String> dates;
     Random random;
     ArrayList<BarEntry> barEntries;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
 
         barChart = (BarChart) findViewById(R.id.bargraph);
-
         createRandomBarGraph("2020/05/05", "2020/06/01");
-
     }
 
     public void createRandomBarGraph(String Date1, String Date2){

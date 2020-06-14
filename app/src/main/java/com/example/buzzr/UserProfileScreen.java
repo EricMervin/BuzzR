@@ -1,27 +1,28 @@
 package com.example.buzzr;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
 
 import com.example.buzzr.HelperClasses.sharedPrefs;
 import com.example.buzzr.HelperClasses.userHelperClass;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -29,12 +30,12 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserProfileScreen extends AppCompatActivity {
+
+    private static final int REQUEST_CALL = 1;
 
     TextView usrNameTV, usrUsernameTV;
     CircleImageView usrPhoto;
@@ -115,7 +116,7 @@ public class UserProfileScreen extends AppCompatActivity {
 
             File f = new File(path, userData.getUsername() + ".jpg");
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-            CircleImageView img = (CircleImageView) findViewById(R.id.profilePhoto);
+            CircleImageView img = findViewById(R.id.profilePhoto);
             img.setImageBitmap(b);
         } catch (FileNotFoundException e) {
         }
@@ -127,6 +128,32 @@ public class UserProfileScreen extends AppCompatActivity {
 
         File oldFile = new File(directory, localUsername + ".jpg");
         oldFile.delete();
+    }
+
+    public void getHelp(View view) {
+        makePhoneCall();
+    }
+
+    private void makePhoneCall() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(UserProfileScreen.this,
+                    new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+        } else{
+            Intent intent = new Intent(Intent.ACTION_CALL);
+            intent.setData(Uri.parse("tel:08447167244"));
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CALL) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                makePhoneCall();
+            } else {
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override

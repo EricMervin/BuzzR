@@ -15,7 +15,8 @@
         android:paddingStart="30dp"
         android:paddingTop="85dp"
         android:paddingEnd="30dp"
-        android:paddingBottom="130dp"
+        android:paddingBottom="85dp"
+        android:elevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -54,60 +55,90 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/counterHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-3dp"
+        android:fontFamily="@font/montserratsemibold"
+        android:text="Times you touched your face"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="45dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="200dp"
         android:layout_marginEnd="30dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/maindashboard_counterbackground"
         android:elevation="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/addCounter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <TextView
+            android:id="@+id/faceCounter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="40dp"
-            android:textSize="84sp"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="60dp"
             android:fontFamily="@font/montserratbold"
             android:gravity="center"
             android:text="1234"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="84sp" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+    <Button
+        android:id="@+id/addCounter"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="35dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
-        android:background="@color/colorPrimaryDark"
-        android:padding="20dp"
+        android:layout_marginBottom="40dp"
+        android:drawableRight="@drawable/add_icon"
+        android:fontFamily="@font/montserratbold"
+        android:letterSpacing=".1"
+        android:onClick="addOne"
+        android:padding="12dp"
+        android:stateListAnimator="@null"
+        android:text="Add One To Counter"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/getHelpBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/colorPrimaryDark"
+        app:strokeWidth="1.5dp" />
+
+    <Button
+        android:id="@+id/getHelpBtn"
+        style="@style/Widget.MaterialComponents.Button"
+        android:backgroundTint="@color/customError"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:drawableRight="@drawable/help_icon"
+        android:fontFamily="@font/montserratbold"
+        android:letterSpacing=".1"
+        android:onClick="getHelp"
+        android:padding="12dp"
+        android:stateListAnimator="@null"
+        android:text="Get Help"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/viewMoreStats"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.0">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="40dp"
-            android:fontFamily="@font/montserratbold"
-            android:gravity="center"
-            android:text="1234"
-            android:textColor="@color/white"
-            android:textSize="84dp" />
-
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/viewMoreStats"

@@ -24,5 +24,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="190dp"
-        android:layout_marginBottom="141dp"></com.github.mikephil.charting.charts.BarChart>
+        android:layout_marginBottom="141dp">
+    </com.github.mikephil.charting.charts.BarChart>
 </RelativeLayout>
