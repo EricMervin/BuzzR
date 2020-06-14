@@ -168,7 +168,7 @@ public class MainDashboard extends AppCompatActivity {
     }
 
     public void openStats(View view) {
-        Intent intent = new Intent(this, UserProfileScreen.class);
+        Intent intent = new Intent(this, GraphActivity.class);
         startActivity(intent);
     }
 }

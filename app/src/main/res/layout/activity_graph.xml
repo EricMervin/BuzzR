@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.buzzr.GraphScreen">
+
+    <TextView
+        android:id="@+id/headingSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/garamondbold"
+        android:text="Weekly Monitor"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="44sp"
+        />
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/bargraph"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="190dp"
+        android:layout_marginBottom="141dp"></com.github.mikephil.charting.charts.BarChart>
+</RelativeLayout>

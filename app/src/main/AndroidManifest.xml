@@ -4,6 +4,7 @@
     package="com.example.buzzr">
 
     <uses-feature android:name="android.hardware.Bluetooth" />
+
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -18,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BluetoothScreen"></activity>
+        <activity android:name=".GraphActivity"></activity>
+        <activity android:name=".BluetoothScreen" />
         <activity android:name=".AvailableDevicesScreen" />
         <activity
             android:name=".MainDashboard"
