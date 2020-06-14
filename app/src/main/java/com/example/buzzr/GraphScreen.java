@@ -15,19 +15,22 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-public class GraphActivity extends AppCompatActivity {
+
+public class GraphScreen extends AppCompatActivity {
+
     BarChart barChart;
     ArrayList<String> dates;
     Random random;
     ArrayList<BarEntry> barEntries;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_graph);
+        setContentView(R.layout.graph_screen);
 
         barChart = (BarChart) findViewById(R.id.bargraph);
-        createRandomBarGraph("2020/06/01", "2020/06/08");
+
+        createRandomBarGraph("2020/05/05", "2020/06/01");
+
     }
 
     public void createRandomBarGraph(String Date1, String Date2){
@@ -63,10 +66,10 @@ public class GraphActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        BarDataSet barDataSet = new BarDataSet(barEntries,"Number of times you touched your face");
+        BarDataSet barDataSet = new BarDataSet(barEntries,"Dates");
         BarData barData = new BarData(dates,barDataSet);
         barChart.setData(barData);
-        barChart.setDescription("WEEK 2");
+        barChart.setDescription("MONITORING");
 
     }
 
@@ -80,12 +83,11 @@ public class GraphActivity extends AppCompatActivity {
     }
 
     public String getDate(Calendar cld){
-        String curDate = "";
-        String s= cld.get(Calendar.YEAR) + "/" + (cld.get(Calendar.MONTH) + 1) + "/"
+        String curDate = cld.get(Calendar.MONTH) + "/" + (cld.get(Calendar.WEEK_OF_YEAR) + 1) + "/"
                 +cld.get(Calendar.DAY_OF_WEEK);
         try{
             Date date = new SimpleDateFormat("yyyy/MM/dd").parse(curDate);
-            curDate =  new SimpleDateFormat("yyyy/MM/dd").format(date);
+            curDate =  new SimpleDateFormat("yyy/MM/dd").format(date);
         }catch(ParseException e){
             e.printStackTrace();
         }
