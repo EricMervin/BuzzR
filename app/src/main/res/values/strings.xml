@@ -11,8 +11,7 @@
     <string name="updateInfoBtn">Update Information</string>
 
     <!-- Splash Screen Strings -->
-    <string name="ssTitleStr">BuzzR</string>
-
+    <string name="ssTitleStr">BUZZr</string>
 
     <!-- Login Page String -->
     <string name="lgName">Name</string>

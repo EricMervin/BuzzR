@@ -36,15 +36,15 @@
         android:id="@+id/illustrationLogIn"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="45dp"
         app:layout_constraintBottom_toTopOf="@+id/logInUsernameInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/subHeadingLogIn"
-        app:srcCompat="@drawable/trial" />
+        app:srcCompat="@drawable/li_illustration" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/logInUsernameInput"

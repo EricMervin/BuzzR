@@ -80,14 +80,15 @@ public class MainDashboard extends AppCompatActivity {
 
         //Counter
         setCounterText();
-
-        //Chart
-
-        //Bluetooth Adapter
     }
 
     private void setCounterText() {
         sharedPrefs prefs = new sharedPrefs(getApplicationContext());
+
+        if (prefs.getMDFirstTime()) {
+            prefs.setCounter(-1);
+        }
+
         counterTV.setText(String.valueOf(prefs.getCounter()));
     }
 
@@ -147,7 +148,6 @@ public class MainDashboard extends AppCompatActivity {
     }
 
     public void openUserProfile(View view) {
-//        startActivity(new Intent(this, UserProfileScreen.class));
         Intent intent = new Intent(this, UserProfileScreen.class);
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, usrPhoto, ViewCompat.getTransitionName(usrPhoto));
         startActivity(intent, options.toBundle());
