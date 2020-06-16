@@ -23,6 +23,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
@@ -102,6 +103,7 @@ public class PhoneAuthenticationScreen extends AppCompatActivity {
         public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
             String code = phoneAuthCredential.getSmsCode();
             if (code != null) {
+                userOTPInput.getEditText().setText(code);
                 verifyCode(code);
             }
         }
@@ -120,9 +122,10 @@ public class PhoneAuthenticationScreen extends AppCompatActivity {
     private void signInTheUser(PhoneAuthCredential credential) {
         userOTPInput.setError(null);
         userOTPInput.setErrorEnabled(false);
+
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(PhoneAuthenticationScreen.this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -149,8 +152,10 @@ public class PhoneAuthenticationScreen extends AppCompatActivity {
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                         } else {
-                            userOTPInput.setError("Invalid OTP entered");
-                            userOTPInput.requestFocus();
+                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException){
+                                userOTPInput.setError("Invalid OTP entered");
+                                userOTPInput.requestFocus();
+                            }
                         }
                     }
                 });
@@ -165,8 +170,8 @@ public class PhoneAuthenticationScreen extends AppCompatActivity {
         } else if (code.length() != 6) {
             userOTPInput.setError("OTP entered is not of 6 characters");
             return;
+        } else {
+            verifyCode(code);
         }
-
-        verifyCode(code);
     }
 }

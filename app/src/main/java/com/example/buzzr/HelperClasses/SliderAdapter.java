@@ -17,8 +17,8 @@ public class SliderAdapter extends PagerAdapter {
     Context context;
     LayoutInflater layoutInflater;
     int[] images = {
-            R.drawable.trial,
-            R.drawable.trial,
+            R.drawable.onboard1,
+            R.drawable.ob2,
             R.drawable.trial
     };
     int[] titles = {

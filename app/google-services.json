@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "256823504048-pvqoelb8l3bis2ahr33hura09pidvsqv.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.buzzr",
-            "certificate_hash": "20085ff2ddd6f440c2056b592c35f78aa0da7578"
-          }
-        },
-        {
           "client_id": "256823504048-st8nfjrk11bdpnssbdk5hovlh7iejnhe.apps.googleusercontent.com",
           "client_type": 3
         }
