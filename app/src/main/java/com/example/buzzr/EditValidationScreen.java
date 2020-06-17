@@ -1,12 +1,10 @@
 package com.example.buzzr;
 
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -89,16 +87,20 @@ public class EditValidationScreen extends AppCompatActivity {
             if (sameUsername) {
                 Log.d("Old Password", localPassword);
 
+                userHelperClass pref = new userHelperClass(getApplicationContext());
+
                 //SharedPreferences : Storing user Info in Firebase
-                userHelperClassFirebase helperClass = new userHelperClassFirebase(previousName, previousUsername, localPhoneNumber, localPassword);
+                userHelperClassFirebase helperClass = new userHelperClassFirebase(previousName, previousUsername, localPhoneNumber, localPassword, String.valueOf(pref.getCounter()));
                 reference.child(previousUsername).setValue(helperClass);
 
                 //SharedPreferences : Storing user Info Locally
                 userHelperClass helperClass1 = new userHelperClass(getApplicationContext());
                 helperClass1.setName(previousName);
             } else {
+                userHelperClass pref = new userHelperClass(getApplicationContext());
+
                 //SharedPreferences : Storing user Info in Firebase
-                userHelperClassFirebase helperClass = new userHelperClassFirebase(previousName, previousUsername, localPhoneNumber, localPassword);
+                userHelperClassFirebase helperClass = new userHelperClassFirebase(previousName, previousUsername, localPhoneNumber, localPassword, String.valueOf(pref.getCounter()));
                 reference.child(previousUsername).setValue(helperClass);
                 reference.child(localUsername).removeValue();
 

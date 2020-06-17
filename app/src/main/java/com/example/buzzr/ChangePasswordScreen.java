@@ -109,10 +109,11 @@ public class ChangePasswordScreen extends AppCompatActivity {
                         if (oldPass.equals(newPass)) {
                             newPasswordEntered.setError("New password cannot be same as old password.");
                         } else {
-                            userHelperClassFirebase helperClass = new userHelperClassFirebase(localName, localUsername, localPhoneNo, newPass);
+                            userHelperClass userData = new userHelperClass(getApplicationContext());
+
+                            userHelperClassFirebase helperClass = new userHelperClassFirebase(localName, localUsername, localPhoneNo, newPass, String.valueOf(userData.getCounter()));
                             reference.child(localUsername).setValue(helperClass);
 
-                            userHelperClass userData = new userHelperClass(getApplicationContext());
                             userData.setPassword(newPass);
 
                             Intent intent = new Intent(getApplicationContext(), UserProfileScreen.class);

@@ -21,7 +21,10 @@ import androidx.core.view.ViewCompat;
 
 import com.example.buzzr.HelperClasses.sharedPrefs;
 import com.example.buzzr.HelperClasses.userHelperClass;
+import com.example.buzzr.HelperClasses.userHelperClassFirebase;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -44,6 +47,9 @@ public class MainDashboard extends AppCompatActivity {
 
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
+
+    FirebaseDatabase rootNode;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,14 +89,8 @@ public class MainDashboard extends AppCompatActivity {
     }
 
     private void setCounterText() {
-        sharedPrefs prefs = new sharedPrefs(getApplicationContext());
-
-        if (prefs.getMDFirstTime()) {
-            prefs.setCounter(-1);
-        }
-
-        counterTV.setText(String.valueOf(prefs.getCounter()));
-        //counterTV.setText("39");
+        userHelperClass preference = new userHelperClass(getApplicationContext());
+        counterTV.setText(String.valueOf(preference.getCounter()));
     }
 
     private void loadImageFromStorage(String path) {
@@ -216,8 +216,17 @@ public class MainDashboard extends AppCompatActivity {
     }
 
     public void addOne(View view) {
-        sharedPrefs preference = new sharedPrefs(getApplicationContext());
-        preference.setCounter(preference.getCounter());
+        userHelperClass preference = new userHelperClass(getApplicationContext());
+        int counterOld = preference.getCounter();
+        int counterNew = counterOld + 1;
+        preference.setCounter(counterNew);
+
+        rootNode = FirebaseDatabase.getInstance();
+        reference = rootNode.getReference("users");
+
+        userHelperClassFirebase firebasePref = new userHelperClassFirebase(localName, localUsername, localPhoneNumber, localPassword, String.valueOf(counterNew));
+        reference.child(localUsername).setValue(firebasePref);
+
         setCounterText();
     }
 }

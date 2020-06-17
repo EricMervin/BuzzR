@@ -71,4 +71,14 @@ public class userHelperClass {
         editor.putString("Device Name", deviceName);
         editor.commit();
     }
+
+    public int getCounter() {
+        return sharedPref.getInt("Counter", 0);
+    }
+
+    public void setCounter(int counter) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt("Counter", counter);
+        editor.commit();
+    }
 }

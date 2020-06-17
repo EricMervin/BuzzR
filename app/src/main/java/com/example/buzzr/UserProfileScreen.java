@@ -91,6 +91,9 @@ public class UserProfileScreen extends AppCompatActivity {
 
         deleteProfilePhoto();
 
+        userHelperClass userPref = new userHelperClass(getApplicationContext());
+        userPref.setCounter(0);
+
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(this, LoginScreen.class));
         finish();

@@ -1,13 +1,14 @@
 package com.example.buzzr.HelperClasses;
 
 public class userHelperClassFirebase {
-    String name, username, phoneNo, password;
+    String name, username, phoneNo, password, counter;
 
-    public userHelperClassFirebase(String userName, String userUsername, String userPhoneNumber, String userPassword) {
+    public userHelperClassFirebase(String userName, String userUsername, String userPhoneNumber, String userPassword, String userCounter) {
         this.name = userName;
         this.username = userUsername;
         this.phoneNo = userPhoneNumber;
         this.password = userPassword;
+        this.counter = userCounter;
     }
 
     public userHelperClassFirebase() {
@@ -43,5 +44,13 @@ public class userHelperClassFirebase {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getCounter() {
+        return counter;
+    }
+
+    public void setCounter(String counter) {
+        this.counter = counter;
     }
 }

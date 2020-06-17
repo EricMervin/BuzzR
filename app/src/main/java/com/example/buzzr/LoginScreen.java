@@ -16,7 +16,6 @@ import com.example.buzzr.HelperClasses.sharedPrefs;
 import com.example.buzzr.HelperClasses.userHelperClass;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -138,6 +137,7 @@ public class LoginScreen extends AppCompatActivity {
                         String nameFromDB = dataSnapshot.child(userEnteredUsername).child("name").getValue(String.class);
                         String usernameFromDB = dataSnapshot.child(userEnteredUsername).child("username").getValue(String.class);
                         String phoneNoFromDB = dataSnapshot.child(userEnteredUsername).child("phoneNo").getValue(String.class);
+                        String counterFromDB = dataSnapshot.child(userEnteredUsername).child("counter").getValue(String.class);
 
                         //SharedPreferences : Storing user Info
                         userHelperClass helperClass = new userHelperClass(getApplicationContext());
@@ -145,6 +145,7 @@ public class LoginScreen extends AppCompatActivity {
                         helperClass.setUsername(usernameFromDB);
                         helperClass.setPassword(userEnteredPassword);
                         helperClass.setPhoneNo(phoneNoFromDB);
+                        helperClass.setCounter(Integer.parseInt(counterFromDB));
 
                         //SharedPreferences : Login Token
                         sharedPrefs preference = new sharedPrefs(getApplicationContext());

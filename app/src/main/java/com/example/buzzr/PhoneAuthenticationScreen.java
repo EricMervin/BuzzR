@@ -2,6 +2,7 @@ package com.example.buzzr;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -115,8 +116,14 @@ public class PhoneAuthenticationScreen extends AppCompatActivity {
     };
 
     private void verifyCode(String verificationCodeByUser) {
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationCodeBySystem, verificationCodeByUser);
-        signInTheUser(credential);
+        try {
+            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationCodeBySystem, verificationCodeByUser);
+            signInTheUser(credential);
+        } catch (Exception e){
+            Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER,0,0);
+            toast.show();
+        }
     }
 
     private void signInTheUser(PhoneAuthCredential credential) {
@@ -133,7 +140,7 @@ public class PhoneAuthenticationScreen extends AppCompatActivity {
                             reference = rootNode.getReference("users");
 
                             //SharedPreferences : Storing user Info in Firebase
-                            userHelperClassFirebase helperClass = new userHelperClassFirebase(previousName, previousUsername, previousPhoneNo, previousPassword);
+                            userHelperClassFirebase helperClass = new userHelperClassFirebase(previousName, previousUsername, previousPhoneNo, previousPassword, "0");
                             reference.child(previousUsername).setValue(helperClass);
 
                             //SharedPreferences : Storing user Info Locally
@@ -142,6 +149,7 @@ public class PhoneAuthenticationScreen extends AppCompatActivity {
                             helperClass1.setUsername(previousUsername);
                             helperClass1.setPhoneNo(previousPhoneNo);
                             helperClass1.setPassword(previousPassword);
+                            helperClass1.setCounter(0);
 
                             //SharedPreferences : Login Token
                             sharedPrefs preference = new sharedPrefs(getApplicationContext());
