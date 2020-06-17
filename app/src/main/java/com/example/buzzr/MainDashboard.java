@@ -90,6 +90,7 @@ public class MainDashboard extends AppCompatActivity {
         }
 
         counterTV.setText(String.valueOf(prefs.getCounter()));
+        //counterTV.setText("39");
     }
 
     private void loadImageFromStorage(String path) {
