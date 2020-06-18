@@ -1,8 +1,11 @@
 package com.example.buzzr;
+
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.buzzr.HelperClasses.userHelperClass;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -53,10 +56,22 @@ public class GraphActivity extends AppCompatActivity {
             float max = 0f;
             float value = 0f;
             random = new Random();
+
+            userHelperClass preference = new userHelperClass(getApplicationContext());
+
             for(int j = 0; j< dates.size();j++){
                 max = 100f;
-                value = random.nextFloat()*max;
-                barEntries.add(new BarEntry(value,j));
+//                value = random.nextFloat()*max;
+//                barEntries.add(new BarEntry(Math.round(value),j));
+                if(j == 0) {
+                    barEntries.add(new BarEntry(36, j));
+                } else if(j == 1) {
+                    barEntries.add(new BarEntry(23, j));
+                } else if (j == 2) {
+                    barEntries.add(new BarEntry(preference.getCounter(), j));
+                } else {
+                    barEntries.add(new BarEntry(0, j));
+                }
             }
 
         }catch(ParseException e){
@@ -67,7 +82,7 @@ public class GraphActivity extends AppCompatActivity {
         BarData barData = new BarData(dates,barDataSet);
         barChart.setData(barData);
         barChart.setDescription("WEEK 2");
-
+        barDataSet.setColor(Color.BLACK);
     }
 
     public ArrayList<String> getList(Calendar startDate, Calendar endDate){
