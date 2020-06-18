@@ -30,7 +30,7 @@ public class GraphActivity extends AppCompatActivity {
         setContentView(R.layout.activity_graph);
 
         barChart = (BarChart) findViewById(R.id.bargraph);
-        createRandomBarGraph("2020/06/01", "2020/06/08");
+        createRandomBarGraph("2020/06/14", "2020/06/21");
     }
 
     public void createRandomBarGraph(String Date1, String Date2){
@@ -68,6 +68,10 @@ public class GraphActivity extends AppCompatActivity {
                 } else if(j == 1) {
                     barEntries.add(new BarEntry(23, j));
                 } else if (j == 2) {
+                    barEntries.add(new BarEntry(44, j));
+                } else if (j == 3) {
+                    barEntries.add(new BarEntry(32, j));
+                } else if (j == 4) {
                     barEntries.add(new BarEntry(preference.getCounter(), j));
                 } else {
                     barEntries.add(new BarEntry(0, j));
