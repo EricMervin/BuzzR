@@ -81,7 +81,7 @@ public class GraphActivity extends AppCompatActivity {
         BarDataSet barDataSet = new BarDataSet(barEntries,"Number of times you touched your face");
         BarData barData = new BarData(dates,barDataSet);
         barChart.setData(barData);
-        barChart.setDescription("WEEK 2");
+        barChart.setDescription("WEEK 3");
         barDataSet.setColor(Color.BLACK);
     }
 
